@@ -26,7 +26,7 @@ const register = async (name, surname, email, password, role = 'user') => {
 
 const login = async (email, password) => {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: { $eq: email } });
     if (!user) return { message: "User not found", status: 404 };
 
     const compare = await bcrypt.compare(password, user.password);
